@@ -1,0 +1,64 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (goal of filteredGoals; track goal.id) {
+    <div class="border rounded-lg shadow p-4 bg-white relative cursor-pointer hover:shadow-lg transition"
+     (click)="openCalendar.emit(goal)">
+        <!-- Edit/Delete buttons -->
+         <!-- edit/delete buttons need to stopPropagation -->
+  <div class="absolute top-2 right-2 flex gap-2" (click)="$event.stopPropagation()">
+    <button (click)="edit.emit(goal)">✏️ Edit</button>
+    <button (click)="delete.emit(goal.id)">🗑️ Delete</button>
+  </div>
+        <!-- <div class="absolute top-2 right-2 flex gap-2">
+            <button (click)="edit.emit(goal)" class="text-blue-500 hover:text-blue-700">
+                ✏️ Edit
+            </button>
+            <button (click)="delete.emit(goal.id)" class="text-red-500 hover:text-red-700">
+                🗑️ Delete
+            </button>
+        </div> -->
+
+        <!-- Goal content -->
+        <h3 class="text-lg font-bold">{{ goal.title }}</h3>
+        <p class="text-sm text-gray-600 mt-1">
+            <span class="font-medium">Type:</span>
+            {{ goal.goalType === 'yesNo' ? 'Yes/No Goal' : 'Goal with value' }}
+            @if (goal.goalType === 'withValue' && goal.targetValue) {
+            <span> – Target: {{ goal.targetValue }}</span>
+            }
+        </p>
+        <p class="text-sm text-gray-600">
+            <span class="font-medium">Starts:</span> {{ goal.startDateTime | date:'medium' }}
+        </p>
+        <p class="text-sm text-gray-600">
+            <span class="font-medium">Frequency:</span> {{ goal.frequency | titlecase }}
+            @switch (goal.frequency) {
+            @case ('daily') { every {{ goal.everyNDays }} day(s) }
+            @case ('weekly') {
+            every {{ goal.everyNWeeks }} week(s) on
+            {{ getWeekdayNames(goal.selectedWeekdays) }}
+            }
+            @case ('monthly') { every {{ goal.everyNMonths }} month(s) on day {{ goal.dayOfMonth }} }
+            @case ('yearly') { every {{ goal.everyNYears }} year(s) in {{ getMonthName(goal.yearlyMonth) }} on day {{
+            goal.yearlyDay }} }
+            }
+        </p>
+        @if (goal.remindersEnabled) {
+        <p class="text-sm text-gray-600">
+            <span class="font-medium">Reminder:</span> {{ goal.reminderOffset }}
+        </p>
+        }
+
+        <!-- Completion Statistics -->
+          <!-- <div class="mt-3 pt-2 border-t text-sm">
+            <div class="flex justify-between">
+              <span>✅ Completed: {{ getCompletedCount(goal.id) }} days</span>
+              <span>🔥 Streak: {{ getStreak(goal.id) }} days</span>
+            </div>
+          </div> -->
+    </div>
+    } @empty {
+    <p class="col-span-full text-center text-gray-500">
+        {{ emptyMessage }}
+    </p>
+    }
+</div>

@@ -1,0 +1,110 @@
+<div class="h-screen bg-gray-50 flex justify-center items-stretch">
+  <div class="w-full bg-white shadow-md rounded-xl p-4 sm:p-6 flex flex-col">
+
+    <!-- Header -->
+    <p class="text-lg font-semibold mb-4">
+      Welcome, {{ user }}
+    </p>
+
+    <!-- Buttons (UNCHANGED layout) -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      <button
+        (click)="showAll()"
+        class="px-4 py-2 rounded border transition"
+        [class.bg-blue-500]="viewMode === 'all'"
+        [class.text-white]="viewMode === 'all'"
+      >
+        All
+      </button>
+
+      <button
+        (click)="showDaily()"
+        class="px-4 py-2 rounded border transition"
+        [class.bg-blue-500]="viewMode === 'daily'"
+        [class.text-white]="viewMode === 'daily'"
+      >
+        Daily
+      </button>
+
+      <button
+        (click)="showWeekly()"
+        class="px-4 py-2 rounded border transition"
+        [class.bg-blue-500]="viewMode === 'weekly'"
+        [class.text-white]="viewMode === 'weekly'">
+      Weekly
+      </button>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 mt-2">
+      @if (viewMode === 'all') {
+        <!-- <app-all-goals 
+        [goals]="goals"
+        (edit)="editGoal($event)"
+        (delete)="deleteGoal($event)">
+        </app-all-goals> -->
+        <app-goal-list
+          [goals]="goals"
+          frequencyFilter="all"
+          (edit)="editGoal($event)"
+          (delete)="deleteGoal($event)"
+          (openCalendar)="openCalendarForGoal($event)">
+        </app-goal-list>
+      } @else if (viewMode === 'daily') {
+       <app-goal-list
+        [goals]="goals"
+        frequencyFilter="daily"
+        emptyMessage="No daily goals. Add one!"
+        (edit)="editGoal($event)"
+        (delete)="deleteGoal($event)">
+      </app-goal-list>
+      }  @else if (viewMode === 'weekly') {
+       <app-goal-list
+        [goals]="goals"
+        frequencyFilter="weekly"
+        emptyMessage="No weekly goals. Add one!"
+        (edit)="editGoal($event)"
+        (delete)="deleteGoal($event)">
+      </app-goal-list>
+      }
+    </div>
+
+    <button
+      (click)="createGoal()"
+      class="absolute bottom-6 right-6 w-14 h-14 rounded-full bg-blue-500 text-white 
+            flex items-center justify-center shadow-lg
+            hover:bg-blue-600 active:scale-95 transition duration-200"
+      aria-label="Create Goal"
+    >
+    <span class="text-2xl leading-none">+</span>
+  </button>
+
+  <!-- Goal Calendar Modal -->
+@if (showCalendar && selectedGoalForCalendar) {
+  <app-goal-calendar
+    [goal]="selectedGoalForCalendar"
+    (close)="closeCalendar()"
+    (completionChanged)="onCompletionChanged()">
+  </app-goal-calendar>
+}
+
+    @if (showCreateGoal) {
+      <!-- <app-create-goal 
+        (save)="handleGoal($event)" 
+        (close)="closeCreateGoal()">
+      </app-create-goal> -->
+
+      <!-- <app-goal-form
+        (save)="handleGoal($event)" 
+        (close)="closeCreateGoal()">
+      </app-goal-form> -->
+
+       <app-goal-form
+        [editMode]="!editingGoal"
+        [goalData]="editingGoal"
+        (save)="handleGoal($event)"
+        (close)="closeCreateGoal()">
+      </app-goal-form>
+    }
+  </div>
+</div>
