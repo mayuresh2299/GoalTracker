@@ -38,14 +38,10 @@
     <!-- Content -->
     <div class="flex-1 mt-2">
       @if (viewMode === 'all') {
-        <!-- <app-all-goals 
-        [goals]="goals"
-        (edit)="editGoal($event)"
-        (delete)="deleteGoal($event)">
-        </app-all-goals> -->
         <app-goal-list
           [goals]="goals"
           frequencyFilter="all"
+          emptyMessage="No goals found. Add one!"
           (edit)="editGoal($event)"
           (delete)="deleteGoal($event)"
           (openCalendar)="openCalendarForGoal($event)">
@@ -56,7 +52,8 @@
         frequencyFilter="daily"
         emptyMessage="No daily goals. Add one!"
         (edit)="editGoal($event)"
-        (delete)="deleteGoal($event)">
+        (delete)="deleteGoal($event)"
+        (openCalendar)="openCalendarForGoal($event)">
       </app-goal-list>
       }  @else if (viewMode === 'weekly') {
        <app-goal-list
@@ -64,7 +61,8 @@
         frequencyFilter="weekly"
         emptyMessage="No weekly goals. Add one!"
         (edit)="editGoal($event)"
-        (delete)="deleteGoal($event)">
+        (delete)="deleteGoal($event)"
+        (openCalendar)="openCalendarForGoal($event)">
       </app-goal-list>
       }
     </div>
