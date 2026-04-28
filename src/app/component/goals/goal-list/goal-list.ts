@@ -14,6 +14,7 @@ export class GoalListComponent {
   @Input() goals: IGoalFormData[] = [];
   @Input() frequencyFilter: 'all' | 'daily' | 'weekly' | 'monthly' | 'yearly' = 'all';
   @Input() emptyMessage = 'No goals yet. Create one!';
+  @Input() refreshTrigger = 0;
   @Output() edit = new EventEmitter<IGoalFormData>();
   @Output() delete = new EventEmitter<string>();
   @Output() openCalendar = new EventEmitter<IGoalFormData>();
@@ -21,6 +22,13 @@ export class GoalListComponent {
   get filteredGoals(): IGoalFormData[] {
     if (this.frequencyFilter === 'all') return this.goals;
     return this.goals.filter(goal => goal.frequency === this.frequencyFilter);
+  }
+
+  getCompletedDays(goal: IGoalFormData): number {
+    const stored = localStorage.getItem('goal_completions');
+    if (!stored) return 0;
+    const completions: { [goalId: string]: string[] } = JSON.parse(stored);
+    return completions[goal.id!] ? completions[goal.id!].length : 0;
   }
 
   getWeekdayNames(selectedIndices?: number[]): string {

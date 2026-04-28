@@ -12,52 +12,7 @@ interface CompletionRecord {
   selector: 'app-goal-calendar',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  template: `
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" (click)="close.emit()">
-      <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-auto" (click)="$event.stopPropagation()">
-        <!-- Header -->
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-bold">{{ goal.title }} – Completion Calendar</h2>
-          <button (click)="close.emit()" class="text-gray-500 hover:text-gray-700">✕</button>
-        </div>
-
-        <!-- Month navigation -->
-        <div class="flex justify-between items-center mb-4">
-          <button (click)="prevMonth()" class="px-3 py-1 border rounded">◀</button>
-          <span class="text-lg font-semibold">{{ currentMonthName }} {{ currentYear }}</span>
-          <button (click)="nextMonth()" class="px-3 py-1 border rounded">▶</button>
-        </div>
-
-        <!-- Calendar grid -->
-        <div class="grid grid-cols-7 gap-1 text-center mb-2">
-          <div *ngFor="let day of weekDays" class="font-medium text-gray-600">{{ day }}</div>
-        </div>
-        <div class="grid grid-cols-7 gap-1">
-          <button *ngFor="let day of calendarDays"
-                  (click)="toggleDay(day)"
-                  [disabled]="!day.isCurrentMonth"
-                  class="h-10 rounded-lg flex items-center justify-center transition"
-                  [class.bg-green-500]="day.completed && day.isCurrentMonth"
-                  [class.text-white]="day.completed && day.isCurrentMonth"
-                  [class.bg-gray-100]="!day.completed && day.isCurrentMonth"
-                  [class.text-gray-400]="!day.isCurrentMonth"
-                  [class.cursor-pointer]="day.isCurrentMonth"
-                  [class.opacity-50]="!day.isCurrentMonth">
-            {{ day.date.getDate() }}
-          </button>
-        </div>
-
-        <!-- Legend / Stats -->
-        <div class="mt-4 pt-4 border-t text-sm text-gray-600">
-          <div class="flex gap-4">
-            <span>✅ Completed: {{ completedCount }}</span>
-            <span>📅 Total tracked: {{ totalTrackedDays }}</span>
-          </div>
-          <button (click)="resetAllForGoal()" class="mt-2 text-red-500 hover:underline">Reset all completion data for this goal</button>
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './goal-calendar.html',
 })
 export class GoalCalendarComponent implements OnInit, OnChanges {
   @Input() goal!: IGoalFormData;

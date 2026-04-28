@@ -36,17 +36,23 @@
      
           <!-- LEFT -->
             <p class="absolute bottom-2 left-2 text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-            Left
+            {{ goal.startDateTime | date:'hh:mm a' }}
             </p>
 
             <!-- CENTER -->
-            <p class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-            Center
+            <p
+                class="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                {{ goal.frequency | titlecase }}
+                @switch (goal.frequency) {
+                    @case ('weekly'){
+                        {{ getWeekdayNames(goal.selectedWeekdays) }}
+                    }
+                }
             </p>
 
             <!-- RIGHT -->
-            <p class="absolute bottom-2 right-2 text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-            Right
+            <p class="absolute bottom-2 right-2 text-xs font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+                {{ getCompletedDays(goal) }} days completed
             </p>
 
         @if (goal.remindersEnabled) {

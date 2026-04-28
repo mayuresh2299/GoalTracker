@@ -6,6 +6,21 @@
       Welcome, {{ user }}
     </p>
 
+    <!-- Summary Card -->
+    <!-- <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-medium text-blue-800">Total Completed Days</h3>
+          <p class="text-2xl font-bold text-blue-900">{{ totalCompletedDays }}</p>
+        </div>
+        <div class="text-blue-500">
+          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+      </div>
+    </div> -->
+
     <!-- Buttons (UNCHANGED layout) -->
     <div class="flex flex-wrap gap-2 mb-4">
       <button
@@ -42,6 +57,7 @@
           [goals]="goals"
           frequencyFilter="all"
           emptyMessage="No goals found. Add one!"
+          [refreshTrigger]="refreshTrigger"
           (edit)="editGoal($event)"
           (delete)="deleteGoal($event)"
           (openCalendar)="openCalendarForGoal($event)">
@@ -51,6 +67,7 @@
         [goals]="goals"
         frequencyFilter="daily"
         emptyMessage="No daily goals. Add one!"
+        [refreshTrigger]="refreshTrigger"
         (edit)="editGoal($event)"
         (delete)="deleteGoal($event)"
         (openCalendar)="openCalendarForGoal($event)">
@@ -60,6 +77,7 @@
         [goals]="goals"
         frequencyFilter="weekly"
         emptyMessage="No weekly goals. Add one!"
+        [refreshTrigger]="refreshTrigger"
         (edit)="editGoal($event)"
         (delete)="deleteGoal($event)"
         (openCalendar)="openCalendarForGoal($event)">

@@ -23,6 +23,14 @@ export class Home {
   goals: IGoalFormData[] = [];
   showCalendar = false;
   selectedGoalForCalendar: IGoalFormData | null = null;
+  refreshTrigger = 0;
+
+  get totalCompletedDays(): number {
+    const stored = localStorage.getItem('goal_completions');
+    if (!stored) return 0;
+    const completions: { [goalId: string]: string[] } = JSON.parse(stored);
+    return Object.values(completions).reduce((total, dates) => total + dates.length, 0);
+  }
 
   openCalendarForGoal(goal: IGoalFormData): void {
     this.selectedGoalForCalendar = goal;
@@ -56,6 +64,7 @@ export class Home {
   // Since completions are stored separately, you might want to refresh the goal list.
   // For now, just log or do nothing.
   console.log('Completions updated');
+  this.refreshTrigger++;
 }
 
   // Create or update goal

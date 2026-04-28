@@ -45,7 +45,7 @@ export interface IGoalFormData {
 export class GoalFormData implements OnInit {
   @Input() editMode = false;
   // In the child component
-@Input() goalData: IGoalFormData | null | undefined;
+  @Input() goalData: IGoalFormData | null | undefined;
   // @Input() goalData?: IGoalFormData; // data to edit
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<IGoalFormData>();
@@ -82,10 +82,18 @@ export class GoalFormData implements OnInit {
 
   // Months for yearly selector
   months = [
-    { value: 1, name: 'January' }, { value: 2, name: 'February' }, { value: 3, name: 'March' },
-    { value: 4, name: 'April' }, { value: 5, name: 'May' }, { value: 6, name: 'June' },
-    { value: 7, name: 'July' }, { value: 8, name: 'August' }, { value: 9, name: 'September' },
-    { value: 10, name: 'October' }, { value: 11, name: 'November' }, { value: 12, name: 'December' }
+    { value: 1, name: 'January' }, 
+    { value: 2, name: 'February' }, 
+    { value: 3, name: 'March' },
+    { value: 4, name: 'April' }, 
+    { value: 5, name: 'May' }, 
+    { value: 6, name: 'June' },
+    { value: 7, name: 'July' }, 
+    { value: 8, name: 'August' }, 
+    { value: 9, name: 'September' },
+    { value: 10, name: 'October' }, 
+    { value: 11, name: 'November' }, 
+    { value: 12, name: 'December' }
   ];
 
   // Reminders
