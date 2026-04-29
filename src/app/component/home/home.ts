@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AllGoals } from '../goals/all-goals/all-goals';
 import { DailyGoals } from '../goals/daily-goals/daily-goals';
-import { CreateGoal } from '../goals/create-goal/create-goal';
+// import { CreateGoal } from '../goals/create-goal/create-goal';
 import { GoalListComponent } from '../goals/goal-list/goal-list';
 import {GoalCalendarComponent} from '../goals/goal-calendar/goal-calendar';
 import { GoalFormData, IGoalFormData } from '../goals/goal-form-data/goal-form-data';

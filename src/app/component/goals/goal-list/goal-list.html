@@ -1,7 +1,7 @@
 <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> -->
     <div class="grid grid-cols-1 gap-4">
     @for (goal of filteredGoals; track goal.id) {
-    <div class="border rounded-lg shadow p-4 bg-white relative cursor-pointer hover:shadow-lg transition "
+    <div class="border rounded-lg shadow p-4 bg-white relative cursor-pointer hover:shadow-lg transition min-h-[120px]"
         (click)="openCalendar.emit(goal)">
         <div class="absolute top-2 right-2 flex gap-2" (click)="$event.stopPropagation()">
             <button (click)="edit.emit(goal)">✏️ Edit</button>
@@ -10,17 +10,17 @@
 
         <!-- Goal content -->
         <h3 class="text-lg font-bold">{{ goal.title }}</h3>
-        <p class="text-sm text-gray-600 mt-1">
+        <!-- <p class="text-sm text-gray-600 mt-1">
             <span class="font-medium">Type:</span>
             {{ goal.goalType === 'yesNo' ? 'Yes/No Goal' : 'Goal with value' }}
             @if (goal.goalType === 'withValue' && goal.targetValue) {
             <span> – Target: {{ goal.targetValue }}</span>
             }
-        </p>
+        </p> -->
         <p class="text-sm text-gray-600">
-            <span class="font-medium">Starts:</span> {{ goal.startDateTime | date:'medium' }}
+            <!-- <span class="font-medium">Starts:</span> {{ goal.startDateTime | date:'medium' }} -->
         </p>
-        <p class="text-sm text-gray-600">
+        <!-- <p class="text-sm text-gray-600">
             <span class="font-medium">Frequency:</span> {{ goal.frequency | titlecase }}
             @switch (goal.frequency) {
             @case ('daily') { every {{ goal.everyNDays }} day(s) }
@@ -32,7 +32,7 @@
             @case ('yearly') { every {{ goal.everyNYears }} year(s) in {{ getMonthName(goal.yearlyMonth) }} on day {{
             goal.yearlyDay }} }
             }
-        </p>
+        </p> -->
      
           <!-- LEFT -->
             <p class="absolute bottom-2 left-2 text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
