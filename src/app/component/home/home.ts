@@ -1,8 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AllGoals } from '../goals/all-goals/all-goals';
-import { DailyGoals } from '../goals/daily-goals/daily-goals';
-// import { CreateGoal } from '../goals/create-goal/create-goal';
 import { GoalListComponent } from '../goals/goal-list/goal-list';
 import {GoalCalendarComponent} from '../goals/goal-calendar/goal-calendar';
 import { GoalFormData, IGoalFormData } from '../goals/goal-form-data/goal-form-data';
@@ -17,7 +14,7 @@ import { GoalFormData, IGoalFormData } from '../goals/goal-form-data/goal-form-d
 export class Home {
   user = "Mayuresh";
   private router = inject(Router);
-  viewMode: 'all' | 'weekly' | 'daily' = 'all';
+  viewMode: 'all' | 'weekly' | 'monthly' | 'daily' = 'all';
   showCreateGoal = false;
   editingGoal: IGoalFormData | null = null; // track which goal is being edited
   goals: IGoalFormData[] = [];
@@ -132,5 +129,11 @@ export class Home {
     this.viewMode = 'weekly';
     console.log("Weekly button clicked");
     // this.router.navigate(['/weeklyGoals']);
+  }
+
+  showMonthly() {
+    this.viewMode = 'monthly';
+    console.log("Monthly button clicked");
+    // this.router.navigate(['/monthlyGoals']);
   }
 }

@@ -33,6 +33,14 @@
         [class.text-white]="viewMode === 'weekly'">
       Weekly
       </button>
+
+      <button
+        (click)="showMonthly()"
+        class="px-4 py-2 rounded border transition"
+        [class.bg-blue-500]="viewMode === 'monthly'"
+        [class.text-white]="viewMode === 'monthly'">
+        Monthly
+      </button>
     </div>
 
     <!-- Content -->
@@ -62,6 +70,16 @@
         [goals]="goals"
         frequencyFilter="weekly"
         emptyMessage="No weekly goals. Add one!"
+        [refreshTrigger]="refreshTrigger"
+        (edit)="editGoal($event)"
+        (delete)="deleteGoal($event)"
+        (openCalendar)="openCalendarForGoal($event)">
+      </app-goal-list>
+      } @else if (viewMode === 'monthly') {
+       <app-goal-list
+        [goals]="goals"
+        frequencyFilter="monthly"
+        emptyMessage="No monthly goals. Add one!"
         [refreshTrigger]="refreshTrigger"
         (edit)="editGoal($event)"
         (delete)="deleteGoal($event)"
