@@ -1,0 +1,152 @@
+:host {
+  display: block;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  width: 100%;
+  max-width: 42rem;
+  padding: 1.5rem;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.close-btn {
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: var(--text);
+}
+
+.month-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.nav-btn {
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: var(--surface-alt);
+}
+
+.month-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.weekday {
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+}
+
+.day-btn {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.day-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.day-btn:not(:disabled):hover {
+  background: var(--surface-alt);
+}
+
+.day-completed {
+  background: var(--primary);
+  color: white;
+}
+
+.day-incomplete {
+  background: var(--surface-alt);
+  color: var(--text);
+}
+
+.day-outside {
+  color: var(--muted);
+}
+
+.stats {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.reset-btn {
+  margin-top: 0.5rem;
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.reset-btn:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}

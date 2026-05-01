@@ -13,6 +13,7 @@ interface CompletionRecord {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './goal-calendar.html',
+  styleUrl: './goal-calendar.css',
 })
 export class GoalCalendarComponent implements OnInit, OnChanges {
   @Input() goal!: IGoalFormData;
