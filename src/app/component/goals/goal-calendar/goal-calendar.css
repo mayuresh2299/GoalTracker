@@ -106,9 +106,9 @@
   opacity: 0.5;
 }
 
-.day-btn:not(:disabled):hover {
+/* .day-btn:not(:disabled):hover {
   background: var(--surface-alt);
-}
+} */
 
 .day-completed {
   background: var(--primary);
