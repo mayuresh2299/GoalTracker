@@ -12,7 +12,7 @@ import { GoalFormData, IGoalFormData } from '../goals/goal-form-data/goal-form-d
   styleUrl: './home.css',
 })
 export class Home {
-  user = "Mayuresh";
+  user = "User";
   private router = inject(Router);
   viewMode: 'all' | 'weekly' | 'monthly' | 'daily' = 'all';
   showCreateGoal = false;
