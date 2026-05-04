@@ -1,147 +1,128 @@
 
-<!-- <div class="h-screen flex flex-col bg-gray-50"> -->
-<div class="fixed inset-0 bg-gray-50 bg-opacity-50 flex items-center justify-center z-50">
-    <div class="flex-1 p-4 overflow-auto">
-        <form (ngSubmit)="submitForm()" class="h-full flex flex-col space-y-5">
+<div class="overlay">
+    <div class="form-container">
+        <form (ngSubmit)="submitForm()" class="form">
             <!-- Goal Name (existing) -->
-            <div>
-                <label class="block text-sm font-medium mb-1">Goal Name</label>
-                <input type="text" [(ngModel)]="title" name="title" required
-                    class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    autofocus
+            <div class="form-group">
+                <label class="label">Goal Name</label>
+                <input type="text" [(ngModel)]="title" name="title" required class="input" autofocus
                     placeholder="Enter goal name" />
             </div>
 
             <!-- Two-button toggle: Yes or not Goal / Goal with value -->
-            <div>
-                <label class="block text-sm font-medium mb-2">Goal Type</label>
-                <div class="flex gap-3">
+            <div class="form-group">
+                <label class="label">Goal Type</label>
+                <div class="button-group">
                     <button type="button" (click)="goalValueType = 'yesNo'"
-                        [class.bg-blue-500]="goalValueType === 'yesNo'" [class.text-white]="goalValueType === 'yesNo'"
-                        [class.border-blue-500]="goalValueType === 'yesNo'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+                        [class.button-active]="goalValueType === 'yesNo'"
+                        class="button">
                         Yes or not Goal
                     </button>
                     <button type="button" (click)="goalValueType = 'withValue'"
-                        [class.bg-blue-500]="goalValueType === 'withValue'"
-                        [class.text-white]="goalValueType === 'withValue'"
-                        [class.border-blue-500]="goalValueType === 'withValue'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">
+                        [class.button-active]="goalValueType === 'withValue'"
+                        class="button">
                         Goal with value
                     </button>
                 </div>
             </div>
 
             <!-- Conditional target value field (only for Goal with value) -->
-            <div *ngIf="goalValueType === 'withValue'">
-                <label class="block text-sm font-medium mb-1">Target Value</label>
-                <input type="number" [(ngModel)]="targetValue" name="targetValue"
-                    class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            <div *ngIf="goalValueType === 'withValue'" class="form-group">
+                <label class="label">Target Value</label>
+                <input type="number" [(ngModel)]="targetValue" name="targetValue" class="input"
                     placeholder="e.g., 1000 steps, 5kg" />
             </div>
 
             <!-- From: Date and Time (default current date+time, with time selection) -->
-            <div>
-                <label class="block text-sm font-medium mb-1">From</label>
-                <input type="datetime-local" [(ngModel)]="startDateTime" name="startDateTime" required
-                    class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+            <div class="form-group">
+                <label class="label">From</label>
+                <input type="datetime-local" [(ngModel)]="startDateTime" name="startDateTime" required class="input" />
             </div>
 
             <!-- Frequency selection: Daily / Weekly / Monthly / Yearly -->
-            <div>
-                <label class="block text-sm font-medium mb-2">Frequency</label>
-                <div class="flex flex-wrap gap-2">
-                    <button type="button" (click)="frequency = 'daily'" [class.bg-blue-500]="frequency === 'daily'"
-                        [class.text-white]="frequency === 'daily'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Daily</button>
-                    <button type="button" (click)="frequency = 'weekly'" [class.bg-blue-500]="frequency === 'weekly'"
-                        [class.text-white]="frequency === 'weekly'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Weekly</button>
-                    <button type="button" (click)="frequency = 'monthly'" [class.bg-blue-500]="frequency === 'monthly'"
-                        [class.text-white]="frequency === 'monthly'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Monthly</button>
-                    <button type="button" (click)="frequency = 'yearly'" [class.bg-blue-500]="frequency === 'yearly'"
-                        [class.text-white]="frequency === 'yearly'"
-                        class="px-4 py-2 border rounded-lg hover:bg-gray-100 transition">Yearly</button>
+            <div class="form-group">
+                <label class="label">Frequency</label>
+                <div class="frequency-buttons">
+                    <button type="button" (click)="frequency = 'daily'" [class.button-active]="frequency === 'daily'"
+                        class="button">Daily</button>
+                    <button type="button" (click)="frequency = 'weekly'" [class.button-active]="frequency === 'weekly'"
+                        class="button">Weekly</button>
+                    <button type="button" (click)="frequency = 'monthly'" [class.button-active]="frequency === 'monthly'"
+                        class="button">Monthly</button>
+                    <button type="button" (click)="frequency = 'yearly'" [class.button-active]="frequency === 'yearly'"
+                        class="button">Yearly</button>
                 </div>
             </div>
 
             <!-- Dynamic sub-options based on frequency -->
             <!-- Daily: Every __ Days -->
-            <div *ngIf="frequency === 'daily'">
+            <div *ngIf="frequency === 'daily'" class="form-group">
                 <div class="flex items-center gap-3">
                     <span class="text-sm font-medium">Every</span>
-                    <input type="number" min="1" [(ngModel)]="everyNDays" name="everyNDays"
-                        class="w-24 border rounded-lg px-3 py-2 text-center" />
+                    <input type="number" min="1" [(ngModel)]="everyNDays" name="everyNDays" class="number-input input" />
                     <span class="text-sm">day(s)</span>
                 </div>
             </div>
 
             <!-- Weekly: Every __ Weeks + Weekday checkboxes -->
-            <div *ngIf="frequency === 'weekly'">
+            <div *ngIf="frequency === 'weekly'" class="form-group">
                 <div class="flex items-center gap-3 mb-3">
                     <span class="text-sm font-medium">Every</span>
-                    <input type="number" min="1" [(ngModel)]="everyNWeeks" name="everyNWeeks"
-                        class="w-24 border rounded-lg px-3 py-2 text-center" />
+                    <input type="number" min="1" [(ngModel)]="everyNWeeks" name="everyNWeeks" class="number-input input" />
                     <span class="text-sm">week(s) on</span>
                 </div>
-                <div class="flex flex-wrap gap-3">
-                    <label *ngFor="let day of weekDaysList; let i = index" class="flex items-center gap-1">
-                        <input type="checkbox" [(ngModel)]="weekdaysSelected[i]" [name]="'weekday_' + i"
-                            class="rounded" />
-                        <span class="text-sm">{{ day }}</span>
+                <div class="checkbox-group">
+                    <label *ngFor="let day of weekDaysList; let i = index" class="checkbox-label">
+                        <input type="checkbox" [(ngModel)]="weekdaysSelected[i]" [name]="'weekday_' + i" class="checkbox" />
+                        <span>{{ day }}</span>
                     </label>
                 </div>
-                <p *ngIf="!anyWeekdaySelected" class="text-xs text-red-500 mt-1">Select at least one weekday</p>
+                <p *ngIf="!anyWeekdaySelected" class="error-text">Select at least one weekday</p>
             </div>
 
             <!-- Monthly: Every __ Months + Day of month -->
-            <div *ngIf="frequency === 'monthly'">
+            <div *ngIf="frequency === 'monthly'" class="form-group">
                 <div class="flex items-center gap-3 mb-2">
                     <span class="text-sm font-medium">Every</span>
-                    <input type="number" min="1" [(ngModel)]="everyNMonths" name="everyNMonths"
-                        class="w-24 border rounded-lg px-3 py-2 text-center" />
+                    <input type="number" min="1" [(ngModel)]="everyNMonths" name="everyNMonths" class="number-input input" />
                     <span class="text-sm">month(s)</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <span class="text-sm font-medium">On day</span>
-                    <input type="number" min="1" max="31" [(ngModel)]="dayOfMonth" name="dayOfMonth"
-                        class="w-24 border rounded-lg px-3 py-2 text-center" />
+                    <input type="number" min="1" max="31" [(ngModel)]="dayOfMonth" name="dayOfMonth" class="number-input input" />
                 </div>
             </div>
 
             <!-- Yearly: Every __ Years + Month + Day -->
-            <div *ngIf="frequency === 'yearly'">
+            <div *ngIf="frequency === 'yearly'" class="form-group">
                 <div class="flex items-center gap-3 mb-2">
                     <span class="text-sm font-medium">Every</span>
-                    <input type="number" min="1" [(ngModel)]="everyNYears" name="everyNYears"
-                        class="w-24 border rounded-lg px-3 py-2 text-center" />
+                    <input type="number" min="1" [(ngModel)]="everyNYears" name="everyNYears" class="number-input input" />
                     <span class="text-sm">year(s)</span>
                 </div>
                 <div class="flex gap-3 items-center flex-wrap">
                     <div class="flex items-center gap-2">
                         <span class="text-sm">Month:</span>
-                        <select [(ngModel)]="yearlyMonth" name="yearlyMonth" class="border rounded-lg px-2 py-1">
+                        <select [(ngModel)]="yearlyMonth" name="yearlyMonth" class="select">
                             <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
                         </select>
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-sm">Day:</span>
-                        <input type="number" min="1" max="31" [(ngModel)]="yearlyDay" name="yearlyDay"
-                            class="w-20 border rounded-lg px-2 py-1" />
+                        <input type="number" min="1" max="31" [(ngModel)]="yearlyDay" name="yearlyDay" class="small-input input" />
                     </div>
                 </div>
             </div>
 
             <!-- Reminders section -->
-            <div>
+            <div class="form-group">
                 <div class="flex items-center gap-2 mb-2">
-                    <input type="checkbox" [(ngModel)]="remindersEnabled" name="remindersEnabled" class="w-4 h-4" />
-                    <label class="text-sm font-medium">Enable Reminders</label>
+                    <input type="checkbox" [(ngModel)]="remindersEnabled" name="remindersEnabled" class="checkbox" />
+                    <label class="label">Enable Reminders</label>
                 </div>
-                <div *ngIf="remindersEnabled" class="ml-6">
-                    <label class="block text-sm font-medium mb-1">Remind me</label>
-                    <select [(ngModel)]="reminderOffset" name="reminderOffset" class="border rounded-lg px-3 py-2 w-48">
+                <div *ngIf="remindersEnabled" class="sub-options">
+                    <label class="label">Remind me</label>
+                    <select [(ngModel)]="reminderOffset" name="reminderOffset" class="select">
                         <option value="5min">5 minutes before</option>
                         <option value="15min">15 minutes before</option>
                         <option value="30min">30 minutes before</option>
@@ -153,13 +134,9 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-end gap-2 mt-4 pt-2 border-t">
-                <button type="button" (click)="close.emit()" class="px-4 py-2 border rounded-lg hover:bg-gray-100">
-                    Cancel
-                </button>
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                    Save
-                </button>
+            <div class="actions">
+                <button type="button" (click)="close.emit()" class="button">Cancel</button>
+                <button type="submit" class="button button-primary">Save</button>
             </div>
         </form>
     </div>

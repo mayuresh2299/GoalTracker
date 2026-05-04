@@ -41,6 +41,7 @@ export interface IGoalFormData {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './goal-form-data.html',
+  styleUrl: './goal-form-data.css',
 })
 export class GoalFormData implements OnInit {
   @Input() editMode = false;
